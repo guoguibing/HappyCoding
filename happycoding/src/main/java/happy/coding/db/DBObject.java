@@ -8,8 +8,6 @@ package happy.coding.db;
  */
 public class DBObject
 {
-	protected final static String	sep	= "\t";
-	
 	/**
 	 * replace string to be usable for database
 	 * 

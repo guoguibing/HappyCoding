@@ -100,6 +100,25 @@ public class Maths {
 	}
 
 	/**
+	 * get the normalized value using min-max normalizaiton
+	 * 
+	 * @param x
+	 *            value to be normalized
+	 * @param min
+	 *            min value
+	 * @param max
+	 *            max value
+	 * @return normalized value
+	 */
+	public static double normalize(double x, double min, double max) {
+		if (max > min)
+			return (x - min) / (max - min);
+		else if (isEqual(min, max))
+			return x / max;
+		return x;
+	}
+
+	/**
 	 * Fabonacci sequence
 	 * 
 	 */

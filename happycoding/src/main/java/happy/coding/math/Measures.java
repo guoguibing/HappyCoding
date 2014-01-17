@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import no.uib.cipr.matrix.sparse.FlexCompRowMatrix;
-
 /**
  * Reimplemenmt <code>MyMediaLite.Eval.Measures</code> namespace.
  * 
@@ -306,34 +304,4 @@ public class Measures {
 		return loss;
 	}
 
-	/**
-	 * 
-	 * @param rankedItems
-	 *            the list of ranked items to be recommended
-	 * @param cutoff
-	 *            cutoff in the list
-	 * @param corrs
-	 *            correlations between items
-	 * @return diversity at a specific cutoff position
-	 */
-	public static double DiverseAt(List<Integer> rankedItems, int cutoff, FlexCompRowMatrix corrs) {
-
-		int num = 0;
-		double sum = 0.0;
-		for (int id = 0; id < cutoff; id++) {
-			int i = rankedItems.get(id);
-
-			for (int jd = id + 1; jd < cutoff; jd++) {
-				int j = rankedItems.get(jd);
-				double corr = corrs.get(i, j);
-
-				if (!Double.isNaN(corr)) {
-					sum += (1 - corr);
-					num++;
-				}
-			}
-		}
-
-		return 0.5 * (sum / num);
-	}
 }

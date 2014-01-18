@@ -130,6 +130,10 @@ public class FileIO {
 	public static BufferedReader getReader(String path) throws FileNotFoundException {
 		return new BufferedReader(new FileReader(new File(getResource(path))));
 	}
+	
+	public static BufferedWriter getWriter(String path) throws Exception {
+		return new BufferedWriter(new FileWriter(new File(getResource(path))));
+	}
 
 	/**
 	 * @return the name of current folder

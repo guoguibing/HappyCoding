@@ -22,6 +22,9 @@ public class Systems
 
 	private static OS	os	= null;
 
+	/**
+	 * @return path to the desktop with a file separator in the end
+	 */
 	public static String getDesktop()
 	{
 		if (desktopPath == null) desktopPath = USER_DIRECTORY + FILE_SEPARATOR + "Desktop" + FILE_SEPARATOR;

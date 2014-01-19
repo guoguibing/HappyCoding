@@ -280,6 +280,32 @@ public class Strings {
 
 		return sb.toString();
 	}
+	
+	/**
+	 * convert to a section of message
+	 */
+	public static String toSection(List<String> msgs) {
+		StringBuilder sb = new StringBuilder();
+
+		int repeat = 50;
+
+		sb.append(" *\n");
+		for (String msg : msgs) {
+			sb.append(" * " + msg + "\n");
+			if (msg.length() > repeat)
+				repeat = msg.length();
+		}
+		sb.append(" *\n");
+
+		String stars = Strings.repeat('*', repeat);
+		String head = "\n/*" + stars + "\n";
+		sb.insert(0, head);
+
+		String tail = " *" + stars + "/";
+		sb.append(tail);
+
+		return sb.toString();
+	}
 
 	public static void setSeparator(Separator _separator) {
 		separator = _separator;

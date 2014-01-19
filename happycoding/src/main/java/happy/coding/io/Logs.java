@@ -60,13 +60,6 @@ public class Logs {
 			logger.info(msg.toString());
 	}
 
-	public static void info(String[] msg) {
-		if (msg.length == 0)
-			logger.info(null);
-		else
-			logger.info(section(msg));
-	}
-
 	public static void info(String format, Object arg) {
 		logger.info(format, arg);
 	}
@@ -85,10 +78,6 @@ public class Logs {
 
 	public static void warn(String msg) {
 		logger.warn(msg);
-	}
-
-	public static void warn(String... msg) {
-		logger.warn(section(msg));
 	}
 
 	public static void warn(String format, Object arg) {
@@ -111,10 +100,6 @@ public class Logs {
 		logger.error(msg);
 	}
 
-	public static void error(String... msg) {
-		logger.error(section(msg));
-	}
-
 	public static void error(String format, Object arg) {
 		logger.error(format, arg);
 	}
@@ -129,34 +114,6 @@ public class Logs {
 
 	public static void on() {
 		org.apache.log4j.Logger.getRootLogger().setLevel(Level.DEBUG);
-	}
-
-	/**
-	 * Log a section of message
-	 */
-	private static String section(String... msgs) {
-		assert msgs.length > 0;
-
-		StringBuilder sb = new StringBuilder();
-
-		int repeat = 50;
-
-		sb.append(" *\n");
-		for (String msg : msgs) {
-			sb.append(" * " + msg + "\n");
-			if (msg.length() > repeat)
-				repeat = msg.length();
-		}
-		sb.append(" *\n");
-
-		String stars = Strings.repeat('*', repeat);
-		String head = "\n/*" + stars + "\n";
-		sb.insert(0, head);
-
-		String tail = " *" + stars + "/";
-		sb.append(tail);
-
-		return sb.toString();
 	}
 
 	@Test

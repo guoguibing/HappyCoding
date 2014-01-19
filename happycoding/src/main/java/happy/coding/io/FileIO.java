@@ -86,18 +86,18 @@ public class FileIO {
 	 * @return a human-readable display value (includes units)
 	 */
 	public static String formatBytes(long size) {
-		String displaySize;
+		String display;
 
 		if (size / ONE_GB > 0) {
-			displaySize = String.valueOf(size / ONE_GB) + " GB";
+			display = String.format("%.2f", (size + 0.0) / ONE_GB) + " GB";
 		} else if (size / ONE_MB > 0) {
-			displaySize = String.valueOf(size / ONE_MB) + " MB";
+			display = String.format("%.2f", (size + 0.0) / ONE_MB) + " MB";
 		} else if (size / ONE_KB > 0) {
-			displaySize = String.valueOf(size / ONE_KB) + " KB";
+			display = String.format("%.2f", (size + 0.0) / ONE_KB) + " KB";
 		} else {
-			displaySize = String.valueOf(size) + " bytes";
+			display = String.valueOf(size) + " bytes";
 		}
-		return displaySize;
+		return display;
 	}
 
 	/**
@@ -108,18 +108,18 @@ public class FileIO {
 	 * @return a human-readable display value
 	 */
 	public static String formatSize(long size) {
-		String displaySize;
+		String display;
 
 		if (size / ONE_G > 0) {
-			displaySize = String.valueOf(size / ONE_G) + " G";
+			display = String.format("%.2f", (size + 0.0) / ONE_G) + " G";
 		} else if (size / ONE_M > 0) {
-			displaySize = String.valueOf(size / ONE_M) + " M";
+			display = String.format("%.2f", (size + 0.0) / ONE_M) + " M";
 		} else if (size / ONE_K > 0) {
-			displaySize = String.valueOf(size / ONE_K) + " K";
+			display = String.format("%.2f", (size + 0.0) / ONE_K) + " K";
 		} else {
-			displaySize = String.valueOf(size);
+			display = String.valueOf(size);
 		}
-		return displaySize;
+		return display;
 	}
 
 	/**

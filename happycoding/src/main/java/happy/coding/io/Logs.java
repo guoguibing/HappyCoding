@@ -41,13 +41,6 @@ public class Logs {
 		logger.debug(msg);
 	}
 
-	public static void debug(String... msgs) {
-		if (msgs.length == 0)
-			logger.debug(null);
-		else
-			logger.debug(section(msgs));
-	}
-
 	public static void debug(String format, Object arg) {
 		logger.debug(format, arg);
 	}

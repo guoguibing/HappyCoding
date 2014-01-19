@@ -29,25 +29,20 @@ import java.util.Set;
 import org.junit.Test;
 
 public class FileIO {
-	/**
-	 * The number of bytes in a kilobyte.
-	 */
+	// 1G in bytes or units
 	public static final long ONE_KB = 1024;
+	public static final long ONE_K = 1000;
 
-	/**
-	 * The number of bytes in a megabyte.
-	 */
+	// 1M in bytes or units
 	public static final long ONE_MB = ONE_KB * ONE_KB;
+	public static final long ONE_M = ONE_K * ONE_K;
 
-	/**
-	 * The number of bytes in a gigabyte.
-	 */
+	// 1K in bytes or units
 	public static final long ONE_GB = ONE_KB * ONE_MB;
-	
+	public static final long ONE_G = ONE_K * ONE_M;
+
 	public final static String dirResource = makeDirectory(new String[] { "src", "main", "resources" });
 	public final static String desktop = Systems.getDesktop();
-
-	public static String _separator = ",";
 
 	/* comma without consideration in the quotas, such as "boys, girls" */
 	public final static String comma = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
@@ -55,14 +50,15 @@ public class FileIO {
 	/**
 	 * interface for converting an entry of a map to string
 	 * 
-	 * @param <K> key type
-	 * @param <V> value type
+	 * @param <K>
+	 *            key type
+	 * @param <V>
+	 *            value type
 	 */
-	public interface MapWriter<K, V>
-	{
+	public interface MapWriter<K, V> {
 		String processEntry(K key, V val);
 	}
-	
+
 	/**
 	 * Transform an input object with Type K to an output object with type T
 	 * 
@@ -74,34 +70,57 @@ public class FileIO {
 	public interface Converter<K, T> {
 		T transform(K in) throws Exception;
 	}
-	
+
 	/**
 	 * Should not be instanced
 	 */
 	private FileIO() {
 	}
-	
-	/**
-     * Returns a human-readable version of the file size, where the input
-     * represents a specific number of bytes.
-     *
-     * @param size  the number of bytes
-     * @return a human-readable display value (includes units)
-     */
-    public static String formatBytes(long size) {
-        String displaySize;
 
-        if (size / ONE_GB > 0) {
-            displaySize = String.valueOf(size / ONE_GB) + " GB";
-        } else if (size / ONE_MB > 0) {
-            displaySize = String.valueOf(size / ONE_MB) + " MB";
-        } else if (size / ONE_KB > 0) {
-            displaySize = String.valueOf(size / ONE_KB) + " KB";
-        } else {
-            displaySize = String.valueOf(size) + " bytes";
-        }
-        return displaySize;
-    }
+	/**
+	 * Returns a human-readable version of the file size, where the input
+	 * represents a specific number of bytes.
+	 * 
+	 * @param size
+	 *            the number of bytes
+	 * @return a human-readable display value (includes units)
+	 */
+	public static String formatBytes(long size) {
+		String displaySize;
+
+		if (size / ONE_GB > 0) {
+			displaySize = String.valueOf(size / ONE_GB) + " GB";
+		} else if (size / ONE_MB > 0) {
+			displaySize = String.valueOf(size / ONE_MB) + " MB";
+		} else if (size / ONE_KB > 0) {
+			displaySize = String.valueOf(size / ONE_KB) + " KB";
+		} else {
+			displaySize = String.valueOf(size) + " bytes";
+		}
+		return displaySize;
+	}
+
+	/**
+	 * Returns a human-readable version of the file size.
+	 * 
+	 * @param size
+	 *            the size of a file in units (not in bytes)
+	 * @return a human-readable display value
+	 */
+	public static String formatSize(long size) {
+		String displaySize;
+
+		if (size / ONE_G > 0) {
+			displaySize = String.valueOf(size / ONE_G) + " G";
+		} else if (size / ONE_M > 0) {
+			displaySize = String.valueOf(size / ONE_M) + " M";
+		} else if (size / ONE_K > 0) {
+			displaySize = String.valueOf(size / ONE_K) + " K";
+		} else {
+			displaySize = String.valueOf(size);
+		}
+		return displaySize;
+	}
 
 	/**
 	 * Get resource path, supporting file and url io path
@@ -130,7 +149,7 @@ public class FileIO {
 	public static BufferedReader getReader(String path) throws FileNotFoundException {
 		return new BufferedReader(new FileReader(new File(getResource(path))));
 	}
-	
+
 	public static BufferedWriter getWriter(String path) throws Exception {
 		return new BufferedWriter(new FileWriter(new File(getResource(path))));
 	}
@@ -689,6 +708,6 @@ public class FileIO {
 
 	@Test
 	public void example() throws Exception {
-		FileIO.writeString(Systems.getDesktop() + "example.html", FileIO.readAsString(WebPages.ChinaMil));
+		FileIO.writeString(FileIO.desktop + "example.html", FileIO.readAsString(WebPages.ChinaMil));
 	}
 }

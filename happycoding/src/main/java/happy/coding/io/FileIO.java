@@ -333,8 +333,8 @@ public class FileIO {
 			Gmailer notifier = new Gmailer();
 			notifier.getProps().setProperty("mail.to", mailTo);
 			notifier.getProps().setProperty("mail.subject",
-					FileIO.getCurrentFolder() + "." + algo + " is finished @ " + Systems.getIP());
-			notifier.send("Algorithm [" + algo + "] has been finished !", dest);
+					FileIO.getCurrentFolder() + "." + algo + "@" + Systems.getIP());
+			notifier.send("Program [" + algo + "] has been finished !", dest);
 		}
 	}
 

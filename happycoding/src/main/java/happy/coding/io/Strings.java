@@ -48,20 +48,20 @@ public class Strings {
 	/**
 	 * Concatenates an array of string
 	 * 
-	 * @param strings
-	 *            the strings to concatenate
+	 * @param objs
+	 *            the objects to be concatenated
+	 * @param sep
+	 *            the separator between strings
 	 * @return the concatenated strings
 	 */
 	public static String toString(Object[] objs, String sep) {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < objs.length; i++) {
-			sb.append(objs[i].toString());
-			if (i < objs.length - 1)
-				sb.append(sep);
-		}
-		return sb.toString();
+		return Joiner.on(sep).skipNulls().join(objs);
 	}
 
+	/**
+	 * default sep="\n" between all objects
+	 * 
+	 */
 	public static String toString(Object[] strings) {
 		return toString(strings, "\n");
 	}
@@ -280,7 +280,7 @@ public class Strings {
 
 		return sb.toString();
 	}
-	
+
 	/**
 	 * convert to a section of message
 	 */

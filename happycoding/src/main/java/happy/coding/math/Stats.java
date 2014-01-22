@@ -126,17 +126,20 @@ public class Stats
 	{
 		double median = 0.0;
 
-		Arrays.sort(data);
-		int size = data.length;
+		// make a clone: do not change original data
+		double[] clones = data.clone();
+		Arrays.sort(clones);
+		
+		int size = clones.length;
 		int index = 0;
 		if (size % 2 == 0)
 		{
-			index = data.length / 2 - 1;
-			median = (data[index] + data[index + 1]) / 2.0;
+			index = clones.length / 2 - 1;
+			median = (clones[index] + clones[index + 1]) / 2.0;
 		} else
 		{
-			index = (data.length + 1) / 2 - 1;
-			median = data[index];
+			index = (clones.length + 1) / 2 - 1;
+			median = clones[index];
 		}
 
 		return median;

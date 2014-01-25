@@ -16,6 +16,10 @@ import org.slf4j.LoggerFactory;
 public class Logs {
 	private final static Logger logger = LoggerFactory.getLogger(Logs.class);
 
+	static {
+		config("log4j.properties", false);
+	}
+
 	public static Logger getLogger() {
 		return logger;
 	}

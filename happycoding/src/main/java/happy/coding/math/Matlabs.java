@@ -1,6 +1,7 @@
 package happy.coding.math;
 
 import happy.coding.io.Logs;
+import happy.coding.io.Params;
 
 import java.util.Arrays;
 
@@ -63,12 +64,14 @@ public class Matlabs {
 		if (hold)
 			proxy.eval("hold on");
 
-		proxy.eval("plot(x, y, '" + ops.getKey("linespec", "--bs") + "', 'LineWidth', "
-				+ ops.getKey("LineWidth", "1.5") + ")");
-		proxy.eval("title('" + ops.getKey("title", "Y ~ X") + "')");
-		proxy.eval("xlabel('" + ops.getKey("xlabel", "X") + "')");
-		proxy.eval("ylabel('" + ops.getKey("title", "Y") + "')");
-		proxy.eval("legend('" + ops.getKey("legend", "vals") + "')");
+		proxy.eval("plot(x, y, '" + ops.getParam("linespec", "--bs") + "', 'LineWidth', "
+				+ ops.getParam("LineWidth", "1.5") + ")");
+		proxy.eval("title('" + ops.getParam("title", "Y ~ X") + "')");
+		proxy.eval("xlabel('" + ops.getParam("xlabel", "X") + "')");
+		proxy.eval("ylabel('" + ops.getParam("title", "Y") + "')");
+
+		for (Object gen : ops.getParams("legend"))
+			proxy.eval("legend('" + gen.toString() + "')");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -86,7 +89,7 @@ public class Matlabs {
 		Logs.debug("Result: {}", ((double[]) proxy.getVariable("a"))[0]);
 
 		Matlabs.plot(new double[] { 1, 2, 3 }, new double[] { 4, 5, 6 });
-		Matlabs.plot(new double[] { 4, 3, 1 }, new double[] { 4, 5, 6 }, true, new Params().setKey("linespec", ":mo"));
+		Matlabs.plot(new double[] { 4, 3, 1 }, new double[] { 4, 5, 6 }, true, new Params().addParam("linespec", ":mo"));
 
 		proxy.disconnect();
 	}

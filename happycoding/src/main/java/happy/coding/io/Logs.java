@@ -15,13 +15,14 @@ import org.slf4j.LoggerFactory;
  */
 public class Logs {
 	private final static Logger logger = LoggerFactory.getLogger(Logs.class);
+	private static String conf = null;
 
+	// default configuration
 	static {
-		config("log4j.properties", false);
-	}
-
-	public static Logger getLogger() {
-		return logger;
+		if ((conf = FileIO.getResource("log4j.properties")) != null)
+			config(conf, false);
+		else if ((conf = FileIO.getResource("log4j.xml")) != null)
+			config(conf, true);
 	}
 
 	public static Logger config(String config, boolean isXml) {

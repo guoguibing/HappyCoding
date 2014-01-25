@@ -6,17 +6,14 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import org.slf4j.Logger;
-
 public class SocketServer
 {
-	protected final static Logger	logger	= Logs.getLogger();
 	private ServerSocket ss;
 	
 	public SocketServer(int port) throws Exception
 	{
 		ss = new ServerSocket(port);
-		logger.info("Server Listen to Port: {}", port);
+		Logs.info("Server Listen to Port: {}", port);
 	}
 	
 	public void listen() throws Exception
@@ -25,7 +22,7 @@ public class SocketServer
 		{
 			if (ss == null) return;
 			Socket conn = ss.accept();
-			logger.debug("Get Connection from " + conn.getRemoteSocketAddress());
+			Logs.debug("Get Connection from " + conn.getRemoteSocketAddress());
 
 			InputStream is = conn.getInputStream();
 			StringBuilder sb = new StringBuilder();
@@ -34,7 +31,7 @@ public class SocketServer
 			while ((ch = is.read()) != -1)
 				sb.append((char) ch);
 			
-			logger.info("Message from Client: {}", sb.toString());
+			Logs.info("Message from Client: {}", sb.toString());
 
 			is.close();
 			conn.close();

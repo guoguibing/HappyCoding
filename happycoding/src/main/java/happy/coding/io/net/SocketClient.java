@@ -5,11 +5,8 @@ import happy.coding.io.Logs;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import org.slf4j.Logger;
-
 public class SocketClient
 {
-	protected final static Logger	logger	= Logs.getLogger();
 	private Socket socket;
 	private String remoteHost;
 	private int remotePort;
@@ -29,7 +26,7 @@ public class SocketClient
 		content += "\r\n";
 		os.write(content.getBytes());
 		os.flush();
-		logger.info("Output to Server: {}", content);
+		Logs.info("Output to Server: {}", content);
 		
 		os.close();
 		socket.close();

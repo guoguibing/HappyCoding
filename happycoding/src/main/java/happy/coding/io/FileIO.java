@@ -131,13 +131,13 @@ public class FileIO {
 		if (FileIO.exist(filePath))
 			return filePath;
 
-		URL is = Class.class.getResource(filePath);
-		if (is != null)
-			return is.getFile();
-
 		String path = "./src/main/resources/" + filePath;
 		if (FileIO.exist(path))
 			return path;
+		
+		URL is = Class.class.getResource(filePath);
+		if (is != null)
+			return is.getFile();
 
 		is = Class.class.getResource(path);
 		if (is != null)

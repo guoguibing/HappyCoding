@@ -1,5 +1,7 @@
 package happy.coding.io.net;
 
+import happy.coding.io.Logs;
+
 import java.io.FileInputStream;
 import java.util.Date;
 import java.util.Properties;
@@ -17,9 +19,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Generic Email Class, Read configuration from email.properties file
  * 
@@ -27,7 +26,6 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class EMailer {
-	protected final static Logger logger = LoggerFactory.getLogger(EMailer.class);
 	protected String from;
 	protected String to;
 	protected String cc;
@@ -115,7 +113,7 @@ public class EMailer {
 
 		Transport.send(msg);
 
-		logger.debug("Have sent an email notification to {}. ", to);
+		Logs.debug("Have sent an email notification to {}. ", to);
 	}
 
 	public Properties getProps() {

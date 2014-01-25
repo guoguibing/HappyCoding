@@ -29,6 +29,7 @@ import java.util.Set;
 import org.junit.Test;
 
 public class FileIO {
+	
 	// 1G in bytes or units
 	public static final long ONE_KB = 1024;
 	public static final long ONE_K = 1000;
@@ -41,7 +42,7 @@ public class FileIO {
 	public static final long ONE_GB = ONE_KB * ONE_MB;
 	public static final long ONE_G = ONE_K * ONE_M;
 
-	public final static String dirResource = makeDirectory(new String[] { "src", "main", "resources" });
+	// desktop path
 	public final static String desktop = Systems.getDesktop();
 
 	/* comma without consideration in the quotas, such as "boys, girls" */
@@ -125,16 +126,16 @@ public class FileIO {
 	/**
 	 * Get resource path, supporting file and url io path
 	 * 
-	 * @return
+	 * @return path to the file
 	 */
 	public static String getResource(String filePath) {
 		if (FileIO.exist(filePath))
 			return filePath;
 
-		String path = "./src/main/resources/" + filePath;
+		String path = makeDirPath(new String[] { "src", "main", "resources" }) + filePath;
 		if (FileIO.exist(path))
 			return path;
-		
+
 		URL is = Class.class.getResource(filePath);
 		if (is != null)
 			return is.getFile();
@@ -695,6 +696,9 @@ public class FileIO {
 		}
 	}
 
+	/**
+	 * empty a file content
+	 */
 	public static void empty(String filePath) throws Exception {
 		File file = new File(filePath);
 		if (file.exists())
@@ -702,6 +706,9 @@ public class FileIO {
 		file.createNewFile();
 	}
 
+	/**
+	 * check whether a file exists
+	 */
 	public static boolean exist(String filePath) {
 		return new File(filePath).exists();
 	}

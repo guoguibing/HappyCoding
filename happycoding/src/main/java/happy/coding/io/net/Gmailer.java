@@ -2,8 +2,12 @@ package happy.coding.io.net;
 
 import happy.coding.system.Dates;
 
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+
 public class Gmailer extends EMailer {
-	
+
 	public Gmailer() {
 		configSSL();
 		defaultInstance();
@@ -29,14 +33,23 @@ public class Gmailer extends EMailer {
 	private void defaultInstance() {
 		props.setProperty("mail.debug", "false");
 
-		props.setProperty("mail.smtp.user", "happycodingprojects@gmail.com");
-		props.setProperty("mail.smtp.password", "dailycoding");
+		final String userName = "happycodingprojects@gmail.com";
+		final String password = "dailycoding";
+		props.setProperty("mail.smtp.user", userName);
+		props.setProperty("mail.smtp.password", password);
 
-		props.setProperty("mail.from", "happycodingprojects@gmail.com");
+		props.setProperty("mail.from", userName);
 		props.setProperty("mail.to", "gguo1@e.ntu.edu.sg");
 
 		props.setProperty("mail.subject", "Program Notifier from Gmail");
-		props.setProperty("mail.text", "Program is finished @" + Dates.now());
+		props.setProperty("mail.text", "Program was finished @" + Dates.now());
+
+		Session.getDefaultInstance(props, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(userName, password);
+			}
+		});
 	}
 
 	public static void main(String[] args) throws Exception {

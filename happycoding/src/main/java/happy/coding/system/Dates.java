@@ -49,9 +49,9 @@ public class Dates {
 		} else if (day > 0) {
 			return String.format("%d day, %02d:%02d:%02d.%03d", day, hr, min, sec, ms);
 		} else if (hr > 0) {
-			return String.format("%02d:%02d:%02d.%03d", hr, min, sec, ms);
+			return String.format("%02d:%02d:%02d", hr, min, sec);
 		} else {
-			return String.format("%02d:%02d.%03d", min, sec, ms);
+			return String.format("%02d:%02d", min, sec);
 		}
 	}
 

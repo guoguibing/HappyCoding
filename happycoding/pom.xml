@@ -32,12 +32,12 @@
 			<artifactId>guava</artifactId>
 			<version>15.0</version>
 		</dependency>
-		<!-- Basic Matrix Tools -->
-		<dependency>
+		<!-- Basic Matrix Tools 
+		<dependency> 
 			<groupId>com.googlecode.matrix-toolkits-java</groupId>
 			<artifactId>mtj</artifactId>
 			<version>1.0.1</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>

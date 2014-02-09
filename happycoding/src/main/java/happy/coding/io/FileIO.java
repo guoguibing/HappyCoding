@@ -29,7 +29,7 @@ import java.util.Set;
 import org.junit.Test;
 
 public class FileIO {
-	
+
 	// 1G in bytes or units
 	public static final long ONE_KB = 1024;
 	public static final long ONE_K = 1000;
@@ -152,7 +152,7 @@ public class FileIO {
 	}
 
 	public static BufferedWriter getWriter(String path) throws Exception {
-		return new BufferedWriter(new FileWriter(new File(getResource(path))));
+		return new BufferedWriter(new FileWriter(new File(path)));
 	}
 
 	/**

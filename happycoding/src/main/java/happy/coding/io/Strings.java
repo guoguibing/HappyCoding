@@ -178,6 +178,25 @@ public class Strings {
 		return toString(data, 4);
 	}
 
+	public static String toString(double[][] data) {
+		int rows = data.length;
+		int cols = data[0].length;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Dimension: " + rows + " x " + cols + "\n");
+
+		for (int i = 0; i < rows; i++) {
+			sb.append("[");
+			for (int j = 0; j < cols; j++) {
+				sb.append(String.format("%.6f", data[i][j]));
+				if (j < cols - 1)
+					sb.append("\t");
+			}
+			sb.append("]\n");
+		}
+
+		return sb.toString();
+	}
+
 	public static String toString(Number data, int bits) {
 		double val = data.doubleValue();
 		if (Maths.isInt(val))
@@ -188,7 +207,8 @@ public class Strings {
 	}
 
 	public static List<String> split(String str, String reg) {
-		Iterable<String> iter = Splitter.on(reg).omitEmptyStrings().trimResults().split(str);
+		Iterable<String> iter = Splitter.on(reg).omitEmptyStrings()
+				.trimResults().split(str);
 
 		return Lists.newArrayList(iter);
 	}
@@ -213,7 +233,8 @@ public class Strings {
 		return Joiner.on(sep).skipNulls().join(ts);
 	}
 
-	public static <T> String toString(Collection<T> ts, Converter<T, String> lw) throws Exception {
+	public static <T> String toString(Collection<T> ts, Converter<T, String> lw)
+			throws Exception {
 		if (ts == null || ts.size() == 0)
 			return null;
 		StringBuilder sb = new StringBuilder();
@@ -245,7 +266,8 @@ public class Strings {
 		for (Entry<K, V> en : map.entrySet()) {
 			K key = en.getKey();
 			V val = en.getValue();
-			String line = mw != null ? mw.processEntry(key, val) : key + " -> " + val;
+			String line = mw != null ? mw.processEntry(key, val) : key + " -> "
+					+ val;
 
 			sb.append(line);
 			if (count++ < size - 1)
@@ -341,7 +363,8 @@ public class Strings {
 
 	private void testEquals(String a, String b) {
 		Logs.debug("a = {}, b = {}, a == b? {}", new Object[] { a, b, a == b });
-		Logs.debug("a = {}, b = {}, a == b? {}", new Object[] { a, b, Strings.equals(a, b) });
+		Logs.debug("a = {}, b = {}, a == b? {}",
+				new Object[] { a, b, Strings.equals(a, b) });
 	}
 
 }

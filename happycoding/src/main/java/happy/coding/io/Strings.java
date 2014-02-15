@@ -180,15 +180,14 @@ public class Strings {
 
 	public static String toString(double[][] data) {
 		int rows = data.length;
-		int cols = data[0].length;
 		StringBuilder sb = new StringBuilder();
-		sb.append("Dimension: " + rows + " x " + cols + "\n");
+		sb.append("Dimension: " + rows + " x " + data[0].length + "\n");
 
 		for (int i = 0; i < rows; i++) {
 			sb.append("[");
-			for (int j = 0; j < cols; j++) {
-				sb.append((float)data[i][j]);
-				if (j < cols - 1)
+			for (int j = 0; j < data[i].length; j++) {
+				sb.append((float) data[i][j]);
+				if (j < data[i].length - 1)
 					sb.append("\t");
 			}
 			sb.append("]\n");

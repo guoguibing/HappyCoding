@@ -105,31 +105,6 @@ public class Randoms {
 	}
 
 	/**
-	 * random standard Gaussain distributed double
-	 * <p>
-	 * Reference: http://www.design.caltech.edu/erik/Misc/Gaussian.html
-	 * </p>
-	 * <p>
-	 * Anotehr useful reference: http://www.protonfish.com/random.shtml: G = X +
-	 * X + X, where X is a random double
-	 * </p>
-	 * 
-	 */
-	public static double gaussian() {
-		double x, y, r;
-
-		do {
-			x = uniform(-1.0, 1.0);
-			y = uniform(-1.0, 1.0);
-			r = x * x + y * y;
-		} while (r >= 1.0 || r == 0.0);
-
-		r = Math.sqrt((-2.0 * Math.log(r)) / r);
-
-		return x * r; // or y * r;
-	}
-
-	/**
 	 * return a real number from a Gaussian distribution with given mean and
 	 * stddev
 	 * 
@@ -140,7 +115,7 @@ public class Randoms {
 	 * 
 	 */
 	public static double gaussian(double mu, double sigma) {
-		return mu + sigma * gaussian();
+		return mu + sigma * r.nextGaussian();
 	}
 
 	/**
@@ -622,10 +597,4 @@ public class Randoms {
 		}
 	}
 
-	@Test
-	public void example_gaussian() {
-		for (int i = 0; i < 20; i++) {
-			Logs.debug(gaussian());
-		}
-	}
 }

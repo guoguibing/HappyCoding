@@ -15,6 +15,7 @@ import org.junit.Test;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multiset;
 
 public class Strings {
 	public static final String HELLO = "Hello World!";
@@ -224,6 +225,20 @@ public class Strings {
 	}
 
 	public static <T> String toString(Collection<T> ts) {
+
+		if (ts instanceof Multiset<?>) {
+
+			StringBuilder sb = new StringBuilder();
+			Multiset<T> es = (Multiset<T>) ts;
+
+			for (T e : es.elementSet()) {
+				int count = es.count(e);
+				sb.append(e + ", " + count + "\n");
+			}
+
+			return sb.toString();
+		}
+
 		return toString(ts, ",");
 	}
 

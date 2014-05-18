@@ -49,6 +49,15 @@ public class Randoms {
 	}
 
 	/**
+	 * @return a random number from a given list of numbers
+	 */
+	public static Number random(List<? extends Number> data) {
+		int idx = uniform(data.size());
+
+		return data.get(idx);
+	}
+
+	/**
 	 * a random double array with values in [0, 1)
 	 * 
 	 * @param size
@@ -154,8 +163,7 @@ public class Randoms {
 				// Step 3. Case gds > 1
 				else {
 					gds = -Math.log((b - p) / alpha);
-					if (Math.log(r.nextDouble()) <= ((alpha - 1.0) * Math
-							.log(gds))) {
+					if (Math.log(r.nextDouble()) <= ((alpha - 1.0) * Math.log(gds))) {
 						return gds / rate;
 					}
 				}
@@ -215,11 +223,7 @@ public class Randoms {
 				double q2 = 0.0208333723;
 				double q1 = 0.0416666664;
 
-				q0 = ((((((((q9 * rr + q8) * rr + q7) * rr + q6) * rr + q5)
-						* rr + q4)
-						* rr + q3)
-						* rr + q2)
-						* rr + q1)
+				q0 = ((((((((q9 * rr + q8) * rr + q7) * rr + q6) * rr + q5) * rr + q4) * rr + q3) * rr + q2) * rr + q1)
 						* rr;
 
 				if (alpha > 3.686) {
@@ -255,8 +259,7 @@ public class Randoms {
 				// Step 6.
 				v = t / (s + s);
 				if (Math.abs(v) > 0.25) {
-					q = q0 - s * t + 0.25 * t * t + (ss + ss)
-							* Math.log(1.0 + v);
+					q = q0 - s * t + 0.25 * t * t + (ss + ss) * Math.log(1.0 + v);
 				}
 				// Step 7. Quotient acceptance
 				else {
@@ -264,11 +267,8 @@ public class Randoms {
 							+ 0.5
 							* t
 							* t
-							* ((((((((a9 * v + a8) * v + a7) * v + a6) * v + a5)
-									* v + a4)
-									* v + a3)
-									* v + a2)
-									* v + a1) * v;
+							* ((((((((a9 * v + a8) * v + a7) * v + a6) * v + a5) * v + a4) * v + a3) * v + a2) * v + a1)
+							* v;
 				}
 				if (Math.log(1.0 - u) <= q) {
 					return gds / rate;
@@ -299,18 +299,14 @@ public class Randoms {
 				v = t / (s + s);
 
 				if (Math.abs(v) > 0.25) {
-					q = q0 - s * t + 0.25 * t * t + (ss + ss)
-							* Math.log(1.0 + v);
+					q = q0 - s * t + 0.25 * t * t + (ss + ss) * Math.log(1.0 + v);
 				} else {
 					q = q0
 							+ 0.5
 							* t
 							* t
-							* ((((((((a9 * v + a8) * v + a7) * v + a6) * v + a5)
-									* v + a4)
-									* v + a3)
-									* v + a2)
-									* v + a1) * v;
+							* ((((((((a9 * v + a8) * v + a7) * v + a6) * v + a5) * v + a4) * v + a3) * v + a2) * v + a1)
+							* v;
 				}
 
 				// Step 11.
@@ -323,9 +319,7 @@ public class Randoms {
 				if (q > 0.5) {
 					w = Math.exp(q) - 1.0;
 				} else {
-					w = ((((((e7 * q + e6) * q + e5) * q + e4) * q + e3) * q + e2)
-							* q + e1)
-							* q;
+					w = ((((((e7 * q + e6) * q + e5) * q + e4) * q + e3) * q + e2) * q + e1) * q;
 				}
 
 				if (c * u * sign_u <= w * Math.exp(e - 0.5 * t * t)) {
@@ -376,13 +370,11 @@ public class Randoms {
 		double sum = 0.0;
 		for (int i = 0; i < a.length; i++) {
 			if (a[i] < 0.0)
-				throw new IllegalArgumentException("array entry " + i
-						+ " is negative: " + a[i]);
+				throw new IllegalArgumentException("array entry " + i + " is negative: " + a[i]);
 			sum = sum + a[i];
 		}
 		if (sum > 1.0 + EPSILON || sum < 1.0 - EPSILON)
-			throw new IllegalArgumentException(
-					"sum of array entries not equal to one: " + sum);
+			throw new IllegalArgumentException("sum of array entries not equal to one: " + sum);
 
 		// the for loop may not return a value when both r is (nearly) 1.0 and
 		// when the
@@ -435,8 +427,7 @@ public class Randoms {
 		int next;
 		while (true) {
 			next = min + r.nextInt(max - min);
-			if (exceptions != null && exceptions.length > 0
-					&& Arrays.binarySearch(exceptions, next) >= 0) {
+			if (exceptions != null && exceptions.length > 0 && Arrays.binarySearch(exceptions, next) >= 0) {
 				continue;
 			}
 			if (_tempList.contains(next))
@@ -489,23 +480,19 @@ public class Randoms {
 	 * @throws Exception
 	 *             if the range is less than length, an exception will be thrown
 	 */
-	public static int[] nextNoRepeatIntArray(int length, int range)
-			throws Exception {
+	public static int[] nextNoRepeatIntArray(int length, int range) throws Exception {
 		return nextNoRepeatIntArray(length, 0, range, null);
 	}
 
-	public static int[] nextNoRepeatIntArray(int length, int range,
-			int... exceptions) throws Exception {
+	public static int[] nextNoRepeatIntArray(int length, int range, int... exceptions) throws Exception {
 		return nextNoRepeatIntArray(length, 0, range, exceptions);
 	}
 
-	public static int[] nextNoRepeatIntArray(int length, int min, int max)
-			throws Exception {
+	public static int[] nextNoRepeatIntArray(int length, int min, int max) throws Exception {
 		return nextNoRepeatIntArray(length, min, max, null);
 	}
 
-	public static int[] nextNoRepeatIntArray(int length, int min, int max,
-			int... exceptions) throws Exception {
+	public static int[] nextNoRepeatIntArray(int length, int min, int max, int... exceptions) throws Exception {
 		int maxLen = max - min; // because max itself is not counted
 		if (maxLen < length)
 			throw new Exception("The range is less than legth");
@@ -549,8 +536,7 @@ public class Randoms {
 		return list(size, min, max, false);
 	}
 
-	public static List<Double> list(int size, int min, int max,
-			boolean isInteger) {
+	public static List<Double> list(int size, int min, int max, boolean isInteger) {
 		List<Double> list = new ArrayList<>(size);
 		for (int i = 0; i < size; i++) {
 			if (isInteger)

@@ -23,11 +23,23 @@ public class Configer {
 	}
 
 	/**
-	 * return the key value as a trimmed string
+	 * @return the key value as a trimmed string
 	 * 
 	 */
 	public String getString(String key) {
 		return p.getProperty(key).trim();
+	}
+
+	/**
+	 * set a value to a specific key
+	 * 
+	 * @param key
+	 *            property key
+	 * @param val
+	 *            property value
+	 */
+	public void setString(String key, String val) {
+		p.setProperty(key, val);
 	}
 
 	public boolean containsKey(String key) {

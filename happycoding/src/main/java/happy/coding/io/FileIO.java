@@ -257,6 +257,10 @@ public class FileIO {
 		writeList(filePath, objs, null, false);
 	}
 
+	public static <T> void writeList(String filePath, Collection<T> objs, boolean append) throws Exception {
+		writeList(filePath, objs, null, append);
+	}
+
 	public synchronized static <T> void writeListSyn(String filePath, List<T> objs) throws Exception {
 		writeList(filePath, objs, null, false);
 	}

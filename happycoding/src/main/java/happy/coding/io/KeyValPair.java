@@ -36,8 +36,8 @@ public class KeyValPair<K> implements Comparable<KeyValPair<K>> {
 		return key;
 	}
 
-	public Number getValue() {
-		return val;
+	public double getValue() {
+		return val.doubleValue();
 	}
 
 	@Override

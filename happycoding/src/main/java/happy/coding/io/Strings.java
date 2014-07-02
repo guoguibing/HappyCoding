@@ -60,11 +60,11 @@ public class Strings {
 	}
 
 	/**
-	 * default sep="\n" between all objects
+	 * default sep="," between all objects
 	 * 
 	 */
 	public static String toString(Object[] strings) {
-		return toString(strings, "\n");
+		return toString(strings, ",");
 	}
 
 	/**

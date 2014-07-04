@@ -167,40 +167,25 @@ public class Stats {
 		for (int i = 0; i < data.length; i++)
 			sum += (data[i] - mean) * (data[i] - mean);
 
-		return sum / (data.length - 1);
-	}
-
-	/**
-	 * Calculate a population's variance
-	 * 
-	 */
-	public static double varp(double[] data, double mean) {
-		if (data.length == 0)
-			return Double.NaN;
-
-		double sum = 0.0;
-		for (int i = 0; i < data.length; i++)
-			sum += (data[i] - mean) * (data[i] - mean);
-
 		return sum / data.length;
 	}
 
 	/**
-	 * calculate a sample's standard deviation
+	 * calculate the standard deviation
 	 */
 	public static double sd(Collection<? extends Number> data) {
 		return sd(data, mean(data));
 	}
 
 	/**
-	 * calculate a sample's standard deviation
+	 * calculate the standard deviation
 	 */
 	public static double sd(Collection<? extends Number> data, double mean) {
 		double sum = 0.0;
 		for (Number d : data)
 			sum += Math.pow(d.doubleValue() - mean, 2);
 
-		return Math.sqrt(sum / (data.size() - 1));
+		return Math.sqrt(sum / data.size());
 	}
 
 	/**
@@ -215,24 +200,6 @@ public class Stats {
 	 */
 	public static double sd(double[] data, double mean) {
 		return Math.sqrt(var(data, mean));
-	}
-
-	/**
-	 * calculate a population's standard deviation
-	 */
-	public static double sdp(double[] data, double mean) {
-		return Math.sqrt(varp(data, mean));
-	}
-
-	/**
-	 * calculate a population's standard deviation
-	 */
-	public static double sdp(Collection<? extends Number> data, double mean) {
-		double sum = 0.0;
-		for (Number d : data)
-			sum += Math.pow(d.doubleValue() - mean, 2);
-
-		return Math.sqrt(sum / data.size());
 	}
 
 	public static double sum(double[] data) {

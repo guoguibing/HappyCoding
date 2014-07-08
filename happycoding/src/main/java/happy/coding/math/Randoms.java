@@ -4,6 +4,7 @@ import happy.coding.io.Logs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -508,6 +509,33 @@ public class Randoms {
 			Arrays.sort(index);
 		}
 		return index;
+	}
+
+	/**
+	 * Generate a set of random (unique) integers in the range [min, max) with
+	 * length {@code length}
+	 * 
+	 * @return a set of unique integers
+	 */
+	public List<Integer> randInts(int length, int min, int max) throws Exception {
+		int len = max - min;
+		if (len < length)
+			throw new Exception("The range is less than legth");
+
+		Set<Integer> ints = new HashSet<>();
+
+		while (true) {
+			int rand = min + r.nextInt(max - min);
+			ints.add(rand);
+
+			if (ints.size() >= length)
+				break;
+		}
+
+		List<Integer> res = new ArrayList<>(ints);
+		Collections.sort(res);
+
+		return res;
 	}
 
 	public static int[] ints(int range, int size) {

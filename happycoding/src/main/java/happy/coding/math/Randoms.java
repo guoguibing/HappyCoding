@@ -517,7 +517,7 @@ public class Randoms {
 	 * 
 	 * @return a set of unique integers
 	 */
-	public List<Integer> randInts(int length, int min, int max) throws Exception {
+	public static List<Integer> randInts(int length, int min, int max) throws Exception {
 		int len = max - min;
 		if (len < length)
 			throw new Exception("The range is less than legth");
@@ -608,6 +608,14 @@ public class Randoms {
 		for (int i = 0; i < 20; i++) {
 			List<Integer> perm = Randoms.permute(1, 5);
 			Logs.debug("Iteration " + (i + 1) + " : " + perm);
+		}
+	}
+
+	@Test
+	public void example_randInts() throws Exception {
+		for (int i = 0; i < 20; i++) {
+			List<Integer> ints = Randoms.randInts(5, 0, 10);
+			Logs.debug("Iteration " + (i + 1) + " : " + ints);
 		}
 	}
 

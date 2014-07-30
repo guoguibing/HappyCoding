@@ -558,7 +558,7 @@ public class FileIO {
 		return contents;
 	}
 
-	public static void writeObj2Xml(String filePath, Object obj) throws Exception {
+	public static void serialize(Object obj, String filePath) throws Exception {
 		FileOutputStream fos = new FileOutputStream(filePath);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		oos.writeObject(obj);
@@ -567,7 +567,7 @@ public class FileIO {
 		fos.close();
 	}
 
-	public static Object readObjByXml(String filePath) throws Exception {
+	public static Object deserialize(String filePath) throws Exception {
 		FileInputStream fis = new FileInputStream(filePath);
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		Object obj = ois.readObject();

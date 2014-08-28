@@ -34,7 +34,7 @@ public class Gmailer extends EMailer {
 		props.setProperty("mail.debug", "false");
 
 		final String userName = "happycodingprojects@gmail.com";
-		final String password = "dailycoding";
+		final String password = "dailycoding@ntu";
 		props.setProperty("mail.smtp.user", userName);
 		props.setProperty("mail.smtp.password", password);
 

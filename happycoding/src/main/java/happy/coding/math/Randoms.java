@@ -408,8 +408,8 @@ public class Randoms {
 	 *            the exception values when generating integers, sorted first
 	 * @return next no-repeated random integer
 	 */
-	public static int nextNoRepeatInt(int range, int... exceptions) {
-		return nextNoRepeatInt(0, range, exceptions);
+	public static int nextInt(int range, int... exceptions) {
+		return nextInt(0, range, exceptions);
 	}
 
 	/**
@@ -424,7 +424,7 @@ public class Randoms {
 	 * @return next no-repeated random integer
 	 */
 
-	public static int nextNoRepeatInt(int min, int max, int... exceptions) {
+	public static int nextInt(int min, int max, int... exceptions) {
 		int next;
 		while (true) {
 			next = min + r.nextInt(max - min);
@@ -481,19 +481,19 @@ public class Randoms {
 	 * @throws Exception
 	 *             if the range is less than length, an exception will be thrown
 	 */
-	public static int[] nextNoRepeatIntArray(int length, int range) throws Exception {
-		return nextNoRepeatIntArray(length, 0, range, null);
+	public static int[] nextIntArray(int length, int range) throws Exception {
+		return nextIntArray(length, 0, range, null);
 	}
 
-	public static int[] nextNoRepeatIntArray(int length, int range, int... exceptions) throws Exception {
-		return nextNoRepeatIntArray(length, 0, range, exceptions);
+	public static int[] nextIntArray(int length, int range, int... exceptions) throws Exception {
+		return nextIntArray(length, 0, range, exceptions);
 	}
 
-	public static int[] nextNoRepeatIntArray(int length, int min, int max) throws Exception {
-		return nextNoRepeatIntArray(length, min, max, null);
+	public static int[] nextIntArray(int length, int min, int max) throws Exception {
+		return nextIntArray(length, min, max, null);
 	}
 
-	public static int[] nextNoRepeatIntArray(int length, int min, int max, int... exceptions) throws Exception {
+	public static int[] nextIntArray(int length, int min, int max, int... exceptions) throws Exception {
 		int maxLen = max - min; // because max itself is not counted
 		if (maxLen < length)
 			throw new Exception("The range is less than legth");
@@ -505,7 +505,7 @@ public class Randoms {
 		} else {
 			Randoms.clearCache();
 			for (int i = 0; i < index.length; i++)
-				index[i] = Randoms.nextNoRepeatInt(min, max, exceptions);
+				index[i] = Randoms.nextInt(min, max, exceptions);
 			Arrays.sort(index);
 		}
 		return index;

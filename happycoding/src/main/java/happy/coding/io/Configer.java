@@ -108,7 +108,7 @@ public class Configer {
 	 */
 	public List<Float> getRange(String key) {
 
-		// value sets support two ways: one is individual value (e.g., "1", "0.5"); the other is range values in
+		// a set of values in two ways: one is individual value (e.g., "1", "0.5"); the other is range values in
 		// the form of "a,b,c" (e.g, "0.5,0.8,0.6") *
 		String delim = "[, \t]";
 		String str = getString(key);
@@ -124,7 +124,11 @@ public class Configer {
 		if (str.contains("**"))
 			return getTimesValues(str);
 
-		return new ArrayList<>();
+		// single value only
+		List<Float> res = new ArrayList<>();
+		res.add(getFloat(key));
+
+		return res;
 	}
 
 	private List<Float> getPlusValues(String str) {
@@ -156,17 +160,17 @@ public class Configer {
 		}
 		return vals;
 	}
-	
+
 	private List<Float> getTimesValues(String str) {
-		
+
 		List<Float> vals = getMultiValues(str, "(\\*\\*)");
 		if (vals.size() < 3)
 			return vals;
-		
+
 		// value ranges
 		float min = vals.get(0), step = vals.get(1), max = vals.get(2);
 		vals.clear();
-		
+
 		if (min > max) {
 			// inverse orer from max --> min
 			while (min > max) {
@@ -174,9 +178,9 @@ public class Configer {
 				min /= step;
 			}
 			vals.add(max);
-			
+
 		} else {
-			
+
 			while (min < max) {
 				vals.add(min);
 				min *= step;

@@ -29,7 +29,7 @@ public class Browser
 
 					rt.exec(new String[] { "sh", "-c", cmd.toString() });
 					break;
-				case Unix:
+				case Mac:
 					rt.exec("open " + url);
 					break;
 			}

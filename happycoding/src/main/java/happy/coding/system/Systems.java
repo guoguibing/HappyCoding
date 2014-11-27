@@ -17,7 +17,7 @@ public class Systems
 	public final static String	OPERATING_SYSTEM	= System.getProperty("os.name");
 
 	public enum OS {
-		Windows, Linux, Unix
+		Windows, Linux, Mac
 	}
 
 	private static OS	os	= null;

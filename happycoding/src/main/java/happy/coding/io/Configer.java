@@ -54,11 +54,9 @@ public class Configer {
 			case Windows:
 				return getString(key + ".wins");
 			case Linux:
-			case Unix:
-				return getString(key + ".lins");
-
+			case Mac:
 			default:
-				return null;
+				return getString(key + ".lins");
 		}
 	}
 

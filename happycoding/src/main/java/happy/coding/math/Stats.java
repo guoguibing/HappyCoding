@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Stats {
-
+ 
 	/**
 	 * @return mean value of a sample
 	 */

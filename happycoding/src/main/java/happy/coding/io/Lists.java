@@ -6,6 +6,7 @@ import happy.coding.math.Randoms;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -197,15 +198,8 @@ public class Lists {
 		return da;
 	}
 
-	public static <K> List<KeyValPair<K>> sortMap(Map<K, ? extends Number> data) {
-		return sortMap(data, false);
-	}
-
 	/**
-	 * sort an {@code Map<String, Double>} map object, according to the double
-	 * values
-	 * 
-	 * @param <K>
+	 * sort an {@code Map<K, V extends Comparable<? extends V>} map object
 	 * 
 	 * @param data
 	 *            map data
@@ -213,14 +207,36 @@ public class Lists {
 	 *            ascending or descending, ascending by default
 	 * @return a sorted list
 	 */
-	public static <K> List<KeyValPair<K>> sortMap(Map<K, ? extends Number> data, boolean inverse) {
-		List<KeyValPair<K>> pairs = new ArrayList<>();
-		for (Entry<K, ? extends Number> en : data.entrySet())
-			pairs.add(new KeyValPair<K>(en.getKey(), en.getValue()));
+	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortMap(Map<K, V> data,
+			final boolean inverse) {
+		
+		// According to tests, LinkedList is slower than ArrayList
+		List<Map.Entry<K, V>> pairs = new ArrayList<>(data.entrySet());
 
-		Collections.sort(pairs);
-		if (inverse)
-			Collections.reverse(pairs);
+		Collections.sort(pairs, new Comparator<Map.Entry<K, V>>() {
+
+			@Override
+			public int compare(Entry<K, V> a, Entry<K, V> b) {
+
+				int res = (a.getValue()).compareTo(b.getValue());
+
+				return inverse ? -res : res;
+			}
+
+		});
+
 		return pairs;
 	}
+
+	/**
+	 * sort an {@code Map<K, V extends Comparable<? extends V>} map object
+	 * 
+	 * @param data
+	 *            map data
+	 * @return a ascending sorted list
+	 */
+	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortMap(Map<K, V> data) {
+		return sortMap(data, false);
+	}
+
 }

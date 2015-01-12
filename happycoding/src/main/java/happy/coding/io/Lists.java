@@ -96,8 +96,7 @@ public class Lists {
 	}
 
 	/**
-	 * Note: if you need to operate on the original list, it's better to use the
-	 * method "retainAll" or "removeAll"
+	 * Note: if you need to operate on the original list, it's better to use the method "retainAll" or "removeAll"
 	 * 
 	 * @return a new list with the exception of two lists: list1 and list2
 	 */
@@ -201,19 +200,52 @@ public class Lists {
 	/**
 	 * sort an {@code Map<K, V extends Comparable<? extends V>} map object
 	 * 
+	 * <p>
+	 * <strong>Remark: </strong> note that this method may be memory-consuming as it needs to make an ArrayList copy of
+	 * input Map data. Instead, we suggest to store original data in List<Map.Entry<K,V>> and use sortList() method to
+	 * avoid object copying.
+	 * </p>
+	 * 
 	 * @param data
 	 *            map data
 	 * @param inverse
-	 *            ascending or descending, ascending by default
+	 *            descending if true; otherwise ascending
 	 * @return a sorted list
+	 * 
 	 */
 	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortMap(Map<K, V> data,
 			final boolean inverse) {
-		
+
 		// According to tests, LinkedList is slower than ArrayList
 		List<Map.Entry<K, V>> pairs = new ArrayList<>(data.entrySet());
 
-		Collections.sort(pairs, new Comparator<Map.Entry<K, V>>() {
+		return sortList(pairs, inverse);
+	}
+
+	/**
+	 * sort a map object: {@code Map<K, V extends Comparable<? extends V>}
+	 * 
+	 * @param data
+	 *            map data
+	 * @return an ascending sorted list
+	 */
+	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortMap(Map<K, V> data) {
+		return sortMap(data, false);
+	}
+
+	/**
+	 * sort a list of objects: {@code List<Map.Entry<K, V extends Comparable<? extends V>>}
+	 * 
+	 * @param data
+	 *            map data
+	 * @param inverse
+	 *            descending if true; otherwise ascending
+	 * @return a sorted list
+	 */
+	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortList(List<Map.Entry<K, V>> data,
+			final boolean inverse) {
+
+		Collections.sort(data, new Comparator<Map.Entry<K, V>>() {
 
 			@Override
 			public int compare(Entry<K, V> a, Entry<K, V> b) {
@@ -225,18 +257,19 @@ public class Lists {
 
 		});
 
-		return pairs;
+		return data;
 	}
 
 	/**
-	 * sort an {@code Map<K, V extends Comparable<? extends V>} map object
+	 * sort a map object: {@code List<Map.Entry<K, V extends Comparable<? extends V>>}
 	 * 
 	 * @param data
 	 *            map data
-	 * @return a ascending sorted list
+	 * @return an ascending sorted list
 	 */
-	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortMap(Map<K, V> data) {
-		return sortMap(data, false);
+	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortList(List<Map.Entry<K, V>> data) {
+
+		return sortList(data, false);
 	}
 
 }

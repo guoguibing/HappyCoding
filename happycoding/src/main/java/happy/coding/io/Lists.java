@@ -219,7 +219,9 @@ public class Lists {
 		// According to tests, LinkedList is slower than ArrayList
 		List<Map.Entry<K, V>> pairs = new ArrayList<>(data.entrySet());
 
-		return sortList(pairs, inverse);
+		sortList(pairs, inverse);
+		
+		return pairs;
 	}
 
 	/**
@@ -242,7 +244,7 @@ public class Lists {
 	 *            descending if true; otherwise ascending
 	 * @return a sorted list
 	 */
-	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortList(List<Map.Entry<K, V>> data,
+	public static <K, V extends Comparable<? super V>> void sortList(List<Map.Entry<K, V>> data,
 			final boolean inverse) {
 
 		Collections.sort(data, new Comparator<Map.Entry<K, V>>() {
@@ -257,7 +259,6 @@ public class Lists {
 
 		});
 
-		return data;
 	}
 
 	/**
@@ -267,9 +268,9 @@ public class Lists {
 	 *            map data
 	 * @return an ascending sorted list
 	 */
-	public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortList(List<Map.Entry<K, V>> data) {
+	public static <K, V extends Comparable<? super V>> void sortList(List<Map.Entry<K, V>> data) {
 
-		return sortList(data, false);
+		sortList(data, false);
 	}
 
 }

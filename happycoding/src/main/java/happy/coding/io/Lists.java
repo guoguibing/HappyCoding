@@ -20,6 +20,14 @@ import org.junit.Test;
  * 
  */
 public class Lists {
+
+	/**
+	 * @return the proper initial size for a target given capacity, based on the default "load factor=0.7"
+	 */
+	public static int initSize(int capacity) {
+		return (int) (Math.ceil(capacity / 0.7));
+	}
+
 	/**
 	 * Rearrange the elements of a double array in random order.
 	 */
@@ -220,7 +228,7 @@ public class Lists {
 		List<Map.Entry<K, V>> pairs = new ArrayList<>(data.entrySet());
 
 		sortList(pairs, inverse);
-		
+
 		return pairs;
 	}
 
@@ -244,8 +252,7 @@ public class Lists {
 	 *            descending if true; otherwise ascending
 	 * @return a sorted list
 	 */
-	public static <K, V extends Comparable<? super V>> void sortList(List<Map.Entry<K, V>> data,
-			final boolean inverse) {
+	public static <K, V extends Comparable<? super V>> void sortList(List<Map.Entry<K, V>> data, final boolean inverse) {
 
 		Collections.sort(data, new Comparator<Map.Entry<K, V>>() {
 

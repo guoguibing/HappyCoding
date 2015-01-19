@@ -104,6 +104,20 @@ public class Lists {
 	}
 
 	/**
+	 * @return the number of common items of two lists: list1 and list2
+	 */
+	public static <T> int overlapSize(List<T> list1, List<T> list2) {
+		int res = 0;
+
+		for (T t : list1) {
+			if (list2.contains(t))
+				res++;
+		}
+
+		return res;
+	}
+
+	/**
 	 * Note: if you need to operate on the original list, it's better to use the method "retainAll" or "removeAll"
 	 * 
 	 * @return a new list with the exception of two lists: list1 and list2
@@ -117,6 +131,20 @@ public class Lists {
 		}
 
 		return ts;
+	}
+	
+	/**
+	 * @return the number of elements in the first list but not in the second list
+	 */
+	public static <T> int exceptSize(List<T> list1, List<T> list2) {
+		int res=0;
+		
+		for (T t : list1) {
+			if (!list2.contains(t))
+				res++;
+		}
+		
+		return res;
 	}
 
 	/**

@@ -237,7 +237,7 @@ public class Measures {
 	 */
 	public static <T> double AUC(List<T> rankedList, List<T> groundTruth, int num_dropped_items) {
 
-		int num_rele_items = Lists.intersect(groundTruth, rankedList).size();
+		int num_rele_items = Lists.overlapSize(groundTruth, rankedList);
 		int num_eval_items = rankedList.size() + num_dropped_items;
 		int num_eval_pairs = (num_eval_items - num_rele_items) * num_rele_items;
 		if (num_eval_pairs < 0) {
@@ -256,7 +256,7 @@ public class Measures {
 			else
 				hits++;
 
-		int num_miss_items = Lists.except(groundTruth, rankedList).size();
+		int num_miss_items = Lists.exceptSize(groundTruth, rankedList);
 		num_correct_pairs += hits * (num_dropped_items - num_miss_items);
 
 		return (num_correct_pairs + 0.0) / num_eval_pairs;

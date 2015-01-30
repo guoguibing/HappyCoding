@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -79,8 +80,7 @@ public class FileIO {
 	}
 
 	/**
-	 * Returns a human-readable version of the file size, where the input
-	 * represents a specific number of bytes.
+	 * Returns a human-readable version of the file size, where the input represents a specific number of bytes.
 	 * 
 	 * @param size
 	 *            the number of bytes
@@ -266,8 +266,7 @@ public class FileIO {
 	}
 
 	/**
-	 * Write contents in Collection<T> to a file with the help of a writer
-	 * helper
+	 * Write contents in Collection<T> to a file with the help of a writer helper
 	 * 
 	 * @param <T>
 	 *            type of Objects in the collection
@@ -275,7 +274,7 @@ public class FileIO {
 	 */
 	public static <T> void writeList(String filePath, Collection<T> ts, Converter<T, String> lw, boolean append)
 			throws Exception {
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(filePath), append));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath, append), "UTF-8"));
 		StringBuilder contents = new StringBuilder();
 		int count = 0;
 		for (T t : ts) {
@@ -314,8 +313,7 @@ public class FileIO {
 	}
 
 	/**
-	 * copy result file (default: "results.txt") to destination fold (default:
-	 * "./Results"), and then notify me by email
+	 * copy result file (default: "results.txt") to destination fold (default: "./Results"), and then notify me by email
 	 * 
 	 * 
 	 * @param algo
@@ -370,8 +368,7 @@ public class FileIO {
 	}
 
 	/**
-	 * Read the content of a file, if keywords are specified, then only lines
-	 * with these keywords will be read
+	 * Read the content of a file, if keywords are specified, then only lines with these keywords will be read
 	 * 
 	 * @param filePath
 	 *            the file to be read
@@ -401,10 +398,9 @@ public class FileIO {
 	}
 
 	/**
-	 * Read String from file at specified line numbers, e.g. read two lines at
-	 * line position 10, 100, starting from line 1. Note that line numbers must
-	 * be ordered from min to max; hence before invoke this method, use ordering
-	 * method first
+	 * Read String from file at specified line numbers, e.g. read two lines at line position 10, 100, starting from line
+	 * 1. Note that line numbers must be ordered from min to max; hence before invoke this method, use ordering method
+	 * first
 	 * 
 	 * @param filePath
 	 * @param lines
@@ -582,8 +578,7 @@ public class FileIO {
 	 * @param dirPath
 	 *            the directory of files
 	 * @param regex
-	 *            the old string needed to be replaced, supporting regular
-	 *            expression
+	 *            the old string needed to be replaced, supporting regular expression
 	 * @param replacement
 	 *            the new string used to replace old string
 	 * @throws Exception

@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
@@ -245,7 +246,7 @@ public class FileIO {
 	}
 
 	public static void writeString(String filePath, String content, boolean append) throws Exception {
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(filePath), append));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath, append), "UTF-8"));
 		if (content.endsWith("\n"))
 			bw.write(content);
 		else
@@ -300,7 +301,7 @@ public class FileIO {
 
 	public static <T> void writeVector(String filePath, List<T> ts, Converter<T, String> wh, boolean append)
 			throws Exception {
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(filePath), append));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath, append), "UTF-8"));
 		int i = 0;
 		StringBuilder sb = new StringBuilder();
 		for (T t : ts) {
@@ -378,7 +379,7 @@ public class FileIO {
 	 * @throws Exception
 	 */
 	public static String readAsString(String filePath, String... keywords) throws Exception {
-		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 		StringBuilder sb = new StringBuilder();
 		String line = null;
 		while ((line = br.readLine()) != null) {
@@ -408,7 +409,7 @@ public class FileIO {
 	 * @throws Exception
 	 */
 	public static String readAsString(String filePath, int... lines) throws Exception {
-		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 		StringBuilder sb = new StringBuilder();
 		String line = null;
 		int count = 0;
@@ -449,7 +450,7 @@ public class FileIO {
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> readAsList(String filePath, Converter<String, T> rh) throws FileNotFoundException,
 			Exception {
-		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 		List<T> contents = new ArrayList<>();
 		T t = null;
 		String line = null;
@@ -473,7 +474,7 @@ public class FileIO {
 	@SuppressWarnings("unchecked")
 	public static <T> Set<T> readAsSet(String filePath, Converter<String, T> rh) throws FileNotFoundException,
 			Exception {
-		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 		Set<T> contents = new HashSet<>();
 		String line = null;
 		T t = null;
@@ -495,7 +496,7 @@ public class FileIO {
 	}
 
 	public static Map<String, String> readAsMap(String filePath, String seperator) throws Exception {
-		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 		Map<String, String> contents = new HashMap<>();
 		String line = null;
 		while ((line = br.readLine()) != null) {
@@ -510,7 +511,7 @@ public class FileIO {
 
 	@SuppressWarnings("unchecked")
 	public static <T, E> Map<T, E> readAsMap(String filePath, Converter<String, Object[]> rh) throws Exception {
-		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 		Map<T, E> contents = new HashMap<>();
 		String line = null;
 		while ((line = br.readLine()) != null) {
@@ -541,7 +542,7 @@ public class FileIO {
 	 * @throws Exception
 	 */
 	public static Map<String, Double> readAsIDMap(String filePath, String sep) throws Exception {
-		BufferedReader br = new BufferedReader(new FileReader(new File(filePath)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 		Map<String, Double> contents = new HashMap<>();
 		String line = null;
 		while ((line = br.readLine()) != null) {

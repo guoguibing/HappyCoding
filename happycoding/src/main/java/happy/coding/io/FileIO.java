@@ -2,10 +2,10 @@ package happy.coding.io;
 
 import happy.coding.io.net.Gmailer;
 import happy.coding.io.net.URLReader;
-import happy.coding.io.net.WebPages;
 import happy.coding.system.Dates;
 import happy.coding.system.Systems;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,6 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.nio.channels.FileChannel;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,8 +28,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.junit.Test;
+import java.util.zip.CRC32;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class FileIO {
 
@@ -605,26 +607,34 @@ public class FileIO {
 	}
 
 	public static void copyFile(String source, String target) throws Exception {
-		copyFile(source, target, true);
+		copyFile(new File(source), new File(target));
 	}
 
-	public static void copyFile(String source, String target, boolean override) throws Exception {
-		copyFile(new File(source), new File(target), override);
-	}
-
+	/**
+	 * fast file copy
+	 */
 	public static void copyFile(File source, File target) throws Exception {
-		copyFile(source, target, true);
-	}
 
-	public static void copyFile(File source, File target, boolean override) throws Exception {
-		BufferedReader br = new BufferedReader(new FileReader(source));
-		BufferedWriter bw = new BufferedWriter(new FileWriter(target, !override));
-		String line = null;
-		while ((line = br.readLine()) != null)
-			bw.write(line + "\r\n");
+		FileInputStream fis = new FileInputStream(source);
+		FileOutputStream fos = new FileOutputStream(target);
+		FileChannel inChannel = fis.getChannel();
+		FileChannel outChannel = fos.getChannel();
 
-		br.close();
-		bw.close();
+		// inChannel.transferTo(0, inChannel.size(), outChannel);      
+		// original -- apparently has trouble copying large files on Windows
+
+		// magic number for Windows, 64Mb - 32Kb
+		int maxCount = (64 * 1024 * 1024) - (32 * 1024);
+		long size = inChannel.size();
+		long position = 0;
+		while (position < size) {
+			position += inChannel.transferTo(position, maxCount, outChannel);
+		}
+
+		inChannel.close();
+		outChannel.close();
+		fis.close();
+		fos.close();
 	}
 
 	public static void deleteFile(String source) throws Exception {
@@ -673,10 +683,6 @@ public class FileIO {
 	}
 
 	public static void copyDirectory(String sourceDir, String targetDir) throws Exception {
-		copyDirectory(sourceDir, targetDir, true);
-	}
-
-	public static void copyDirectory(String sourceDir, String targetDir, boolean override) throws Exception {
 		File sDir = new File(sourceDir);
 		File tDir = new File(targetDir);
 
@@ -690,7 +696,7 @@ public class FileIO {
 				if (f.isDirectory()) {
 					copyDirectory(f.getPath(), tDir + Systems.FILE_SEPARATOR + f.getName() + Systems.FILE_SEPARATOR);
 				} else {
-					copyFile(f, new File(tDir.getPath() + Systems.FILE_SEPARATOR + f.getName()), override);
+					copyFile(f, new File(tDir.getPath() + Systems.FILE_SEPARATOR + f.getName()));
 				}
 			}
 		}
@@ -713,8 +719,63 @@ public class FileIO {
 		return new File(filePath).exists();
 	}
 
-	@Test
-	public void example() throws Exception {
-		FileIO.writeString(FileIO.desktop + "example.html", FileIO.readAsString(WebPages.ChinaMil));
+	/**
+	 * list all files of a given folder
+	 * 
+	 * @param dirPath
+	 *            a given folder
+	 * @return file list
+	 */
+	public static File[] listFiles(String dirPath) {
+		File dir = new File(dirPath);
+		if (dir.isDirectory())
+			return dir.listFiles();
+		else
+			return new File[] { dir };
+	}
+
+	/**
+	 * Zip a given folder
+	 * 
+	 * @param dirPath
+	 *            a given folder: must be all files (not sub-folders)
+	 * @param filePath
+	 *            zipped file
+	 * @throws Exception
+	 */
+	public static void zipFolder(String dirPath, String filePath) throws Exception {
+		File outFile = new File(filePath);
+		ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outFile));
+		int bytesRead;
+		byte[] buffer = new byte[1024];
+		CRC32 crc = new CRC32();
+		for (File file : listFiles(dirPath)) {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+			crc.reset();
+			while ((bytesRead = bis.read(buffer)) != -1) {
+				crc.update(buffer, 0, bytesRead);
+			}
+			bis.close();
+
+			// Reset to beginning of input stream
+			bis = new BufferedInputStream(new FileInputStream(file));
+			ZipEntry entry = new ZipEntry(file.getName());
+			entry.setMethod(ZipEntry.STORED);
+			entry.setCompressedSize(file.length());
+			entry.setSize(file.length());
+			entry.setCrc(crc.getValue());
+			zos.putNextEntry(entry);
+			while ((bytesRead = bis.read(buffer)) != -1) {
+				zos.write(buffer, 0, bytesRead);
+			}
+			bis.close();
+		}
+		zos.close();
+
+		Logs.debug("Zip file creater: {}", outFile.getPath());
+	}
+
+	public static void main(String[] args) throws Exception {
+		FileIO.zipFolder(FileIO.desktop + "papers", "desktop.zip");
 	}
 }

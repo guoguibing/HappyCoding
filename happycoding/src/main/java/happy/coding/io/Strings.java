@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.junit.Test;
-
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -206,7 +204,7 @@ public class Strings {
 		return String.format(format, val);
 	}
 
-	public static List<String> split(String str, String reg) {
+	public static List<String> toList(String str, String reg) {
 		Iterable<String> iter = Splitter.on(reg).omitEmptyStrings().trimResults().split(str);
 
 		return Lists.newArrayList(iter);
@@ -342,39 +340,6 @@ public class Strings {
 
 	public static void setSeparator(Separator _separator) {
 		separator = _separator;
-	}
-
-	public static boolean equals(String a, String b) {
-		if (a == null || b == null)
-			return false;
-
-		return a.equals(b);
-	}
-
-	public static boolean equalsIgnoreCase(String a, String b) {
-		if (a == null || b == null)
-			return false;
-
-		return a.equalsIgnoreCase(b);
-	}
-
-	@Test
-	public void example() {
-		String a = null, b = null;
-		testEquals(a, b);
-
-		a = "";
-		b = "";
-		testEquals(a, b);
-
-		a = "abc";
-		b = new String("abc");
-		testEquals(a, b);
-	}
-
-	private void testEquals(String a, String b) {
-		Logs.debug("a = {}, b = {}, a == b? {}", new Object[] { a, b, a == b });
-		Logs.debug("a = {}, b = {}, a == b? {}", new Object[] { a, b, Strings.equals(a, b) });
 	}
 
 }

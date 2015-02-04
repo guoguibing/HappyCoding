@@ -28,6 +28,10 @@ public class Lists {
 		return (int) (Math.ceil(capacity / 0.7));
 	}
 
+	public static <E> int initSize(Collection<E> collection) {
+		return initSize(collection.size());
+	}
+
 	/**
 	 * Rearrange the elements of a double array in random order.
 	 */
@@ -132,18 +136,18 @@ public class Lists {
 
 		return ts;
 	}
-	
+
 	/**
 	 * @return the number of elements in the first list but not in the second list
 	 */
 	public static <T> int exceptSize(List<T> list1, List<T> list2) {
-		int res=0;
-		
+		int res = 0;
+
 		for (T t : list1) {
 			if (!list2.contains(t))
 				res++;
 		}
-		
+
 		return res;
 	}
 

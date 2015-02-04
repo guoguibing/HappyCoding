@@ -772,7 +772,7 @@ public class FileIO {
 		}
 		zos.close();
 
-		Logs.debug("Zip file creater: {}", outFile.getPath());
+		Logs.debug("A zip-file is created to: {}", outFile.getPath());
 	}
 
 	public static void main(String[] args) throws Exception {

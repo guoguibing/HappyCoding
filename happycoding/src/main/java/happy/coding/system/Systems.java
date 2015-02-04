@@ -83,7 +83,7 @@ public class Systems {
 		File file = new File(fileName);
 		ImageIO.write(image, "png", file);
 
-		Logs.debug("Created a screen shot to: {}", file.getPath());
+		Logs.debug("A screenshot is captured to: {}", file.getPath());
 	}
 
 }

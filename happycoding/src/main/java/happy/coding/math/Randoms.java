@@ -52,7 +52,7 @@ public class Randoms {
 	/**
 	 * @return a random number from a given list of numbers
 	 */
-	public static Number random(List<? extends Number> data) {
+	public static <T> T random(List<T> data) {
 		int idx = uniform(data.size());
 
 		return data.get(idx);

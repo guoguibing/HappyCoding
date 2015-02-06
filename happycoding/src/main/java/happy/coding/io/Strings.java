@@ -35,11 +35,10 @@ public class Strings {
 	 *            source string
 	 * @param maxLength
 	 *            maximum length of strings
-	 * @return the last substring of string str with maximum length; if greater;
-	 *         then "..." is padded to start position
+	 * @return the last substring of string str with maximum length; if greater; then "..." is padded to start position
 	 */
 	public static String last(String str, int maxLength) {
-		if (str.length() + 3 < maxLength)
+		if (str.length() + 3 <= maxLength)
 			return str;
 		return "..." + str.substring(str.length() - maxLength + 3);
 	}
@@ -78,10 +77,9 @@ public class Strings {
 	 * 
 	 * <p>
 	 * Note: this method doesn't not support padding with <a
-	 * href="http://www.unicode.org/glossary/#supplementary_character">Unicode
-	 * Supplementary Characters</a> as they require a pair of {@code char}s to
-	 * be represented. If you are needing to support full I18N of your
-	 * applications consider using {@link #repeat(String, int)} instead.
+	 * href="http://www.unicode.org/glossary/#supplementary_character">Unicode Supplementary Characters</a> as they
+	 * require a pair of {@code char}s to be represented. If you are needing to support full I18N of your applications
+	 * consider using {@link #repeat(String, int)} instead.
 	 * </p>
 	 * 
 	 * @param ch
@@ -116,10 +114,8 @@ public class Strings {
 	 * @param str
 	 *            the String to be repeated, may be null
 	 * @param repeat
-	 *            number of times to repeat {@code str}, negative treated as
-	 *            zero
-	 * @return a new String consisting of the original String repeated,
-	 *         {@code null} if null String input
+	 *            number of times to repeat {@code str}, negative treated as zero
+	 * @return a new String consisting of the original String repeated, {@code null} if null String input
 	 */
 	public static String repeat(String str, int repeat) {
 		if (str == null) {

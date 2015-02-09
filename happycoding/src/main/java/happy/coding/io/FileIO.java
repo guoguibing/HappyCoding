@@ -151,11 +151,19 @@ public class FileIO {
 	}
 
 	public static BufferedReader getReader(String path) throws FileNotFoundException {
-		return new BufferedReader(new FileReader(new File(getResource(path))));
+		return getReader(new File(getResource(path)));
+	}
+
+	public static BufferedReader getReader(File file) throws FileNotFoundException {
+		return new BufferedReader(new FileReader(file));
 	}
 
 	public static BufferedWriter getWriter(String path) throws Exception {
-		return new BufferedWriter(new FileWriter(new File(path)));
+		return getWriter(new File(path));
+	}
+
+	public static BufferedWriter getWriter(File file) throws Exception {
+		return new BufferedWriter(new FileWriter(file));
 	}
 
 	/**

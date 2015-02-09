@@ -115,8 +115,7 @@ public class Randoms {
 	}
 
 	/**
-	 * return a real number from a Gaussian distribution with given mean and
-	 * stddev
+	 * return a real number from a Gaussian distribution with given mean and stddev
 	 * 
 	 * @param mu
 	 *            mean
@@ -129,9 +128,8 @@ public class Randoms {
 	}
 
 	/**
-	 * Randomly sample 1 point from Gamma Distribution with the given
-	 * parameters. The code is from Mahout (http://mahout.apache.org/),
-	 * available under Apache 2 license.
+	 * Randomly sample 1 point from Gamma Distribution with the given parameters. The code is from Mahout
+	 * (http://mahout.apache.org/), available under Apache 2 license.
 	 * 
 	 * @param alpha
 	 *            alpha parameter for Gamma Distribution.
@@ -362,9 +360,8 @@ public class Randoms {
 	}
 
 	/**
-	 * Return a number from a discrete distribution: i with probability a[i].
-	 * Precondition: array entries are nonnegative and their sum (very nearly)
-	 * equals 1.0.
+	 * Return a number from a discrete distribution: i with probability a[i]. Precondition: array entries are
+	 * nonnegative and their sum (very nearly) equals 1.0.
 	 */
 	public static int discrete(double[] a) {
 		double EPSILON = 1E-14;
@@ -512,8 +509,7 @@ public class Randoms {
 	}
 
 	/**
-	 * Generate a set of random (unique) integers in the range [min, max) with
-	 * length {@code length}
+	 * Generate a set of random (unique) integers in the range [min, max) with length {@code length}
 	 * 
 	 * @return a set of unique integers
 	 */
@@ -536,6 +532,33 @@ public class Randoms {
 		Collections.sort(res);
 
 		return res;
+	}
+
+	/**
+	 * Get a normalize array of probabilities
+	 * 
+	 * @param size
+	 *            array size
+	 */
+	public static double[] randProbs(int size) {
+		if (size < 1)
+			throw new IllegalArgumentException("The size param must be greate than zero");
+
+		double[] pros = new double[size];
+
+		int sum = 0;
+		for (int i = 0; i < pros.length; i++) {
+			//avoid zero
+			pros[i] = r.nextInt(size) + 1;
+			sum += pros[i];
+		}
+
+		//normalize
+		for (int i = 0; i < pros.length; i++) {
+			pros[i] = pros[i] / sum;
+		}
+
+		return pros;
 	}
 
 	public static int[] ints(int range, int size) {

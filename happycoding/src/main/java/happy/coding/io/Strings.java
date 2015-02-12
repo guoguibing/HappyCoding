@@ -15,6 +15,12 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multiset;
 
+/**
+ * String Utility Class
+ * 
+ * @author gbguo
+ *
+ */
 public class Strings {
 	public static final String HELLO = "Hello World!";
 	public static final String EMPTY = "";

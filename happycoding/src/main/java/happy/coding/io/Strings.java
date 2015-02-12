@@ -190,6 +190,24 @@ public class Strings {
 
 		return sb.toString();
 	}
+	
+	public static String toString(int[][] data) {
+		int rows = data.length;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Dimension: " + rows + " x " + data[0].length + "\n");
+		
+		for (int i = 0; i < rows; i++) {
+			sb.append("[");
+			for (int j = 0; j < data[i].length; j++) {
+				sb.append(data[i][j]);
+				if (j < data[i].length - 1)
+					sb.append("\t");
+			}
+			sb.append("]\n");
+		}
+		
+		return sb.toString();
+	}
 
 	public static String toString(Number data, int bits) {
 		double val = data.doubleValue();

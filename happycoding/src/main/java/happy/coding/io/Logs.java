@@ -54,6 +54,22 @@ public class Logs {
 		logger.debug(format, args);
 	}
 
+	public static void debug() {
+		debug("");
+	}
+
+	public static void error() {
+		error("");
+	}
+
+	public static void warn() {
+		warn("");
+	}
+
+	public static void info() {
+		info("");
+	}
+
 	public static void info(double data) {
 		logger.info(Strings.toString(data));
 	}

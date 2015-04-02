@@ -2,6 +2,7 @@ package happy.coding.math;
 
 import happy.coding.io.Lists;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,11 +64,9 @@ public class Sims {
 	}
 
 	/**
-	 * Calculate Mean Squared Difference (MSD) similarity proposed by Shardanand
-	 * and Maes [1995]:
+	 * Calculate Mean Squared Difference (MSD) similarity proposed by Shardanand and Maes [1995]:
 	 * 
-	 * <i>Social information filtering: Algorithms for automating “word of
-	 * mouth”</i>
+	 * <i>Social information filtering: Algorithms for automating “word of mouth”</i>
 	 * 
 	 * @param u
 	 *            user u's ratings
@@ -93,16 +92,14 @@ public class Sims {
 	}
 
 	/**
-	 * calculate Pearson Correlation Coefficient (PCC) between two vectors of
-	 * ratings
+	 * calculate Pearson Correlation Coefficient (PCC) between two vectors of ratings
 	 * 
 	 * @param a
 	 *            first vector of ratings
 	 * @param b
 	 *            second vector of ratings
 	 * @return Pearson Correlation Coefficient (PCC) value. <br/>
-	 *         If vector a or b is null or the length is less than 2, Double.NaN
-	 *         is returned.
+	 *         If vector a or b is null or the length is less than 2, Double.NaN is returned.
 	 */
 	public static double pcc(List<? extends Number> a, List<? extends Number> b) {
 		if (a == null || b == null || a.size() < 2 || b.size() < 2 || a.size() != b.size())
@@ -159,8 +156,8 @@ public class Sims {
 	}
 
 	/**
-	 * Jaccard's coefficient is defined as the number of common rated items of
-	 * two users divided by the total number of their unique rated items.
+	 * Jaccard's coefficient is defined as the number of common rated items of two users divided by the total number of
+	 * their unique rated items.
 	 * 
 	 * @return Jaccard's coefficient
 	 */
@@ -175,6 +172,40 @@ public class Sims {
 		common = uItems.size() + vItems.size() - all;
 
 		return (common + 0.0) / all;
+
+	}
+
+	/**
+	 * Kendall Rank Correlation Coefficient
+	 * 
+	 * @author Bin Wu
+	 * 
+	 */
+	public static double krcc(List<Double> uItems, List<Double> vItems) {
+		int common = 0, all = 0;
+		double sum = 0;
+		List<Integer> temp = new ArrayList<>();
+
+		Set<Double> items = new HashSet<>();
+		items.addAll(uItems);
+		items.addAll(vItems);
+
+		all = items.size();
+		common = uItems.size() + vItems.size() - all;
+		for (int i = 0; i < uItems.size(); i++) {
+			if (uItems.get(i) > 0 && vItems.get(i) > 0) {
+				temp.add(i);
+			}
+		}
+		for (int m = 0; m < temp.size(); m++) {
+			for (int n = m; n < temp.size(); n++) {
+				if ((uItems.get(temp.get(m)) - uItems.get(temp.get(n)))
+						* (vItems.get(temp.get(m)) - vItems.get(temp.get(n))) < 0) {
+					sum += 1;
+				}
+			}
+		}
+		return 1 - 4 * sum / common * (common - 1);
 
 	}
 

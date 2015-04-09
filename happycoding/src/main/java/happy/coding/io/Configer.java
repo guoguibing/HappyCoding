@@ -27,7 +27,9 @@ public class Configer {
 	 * 
 	 */
 	public String getString(String key) {
-		return p.getProperty(key).trim();
+
+		String str = p.getProperty(key);
+		return str == null ? str : str.trim();
 	}
 
 	/**
@@ -50,13 +52,20 @@ public class Configer {
 	 * @return the file IO path: supporting windows, linux and unix
 	 */
 	public String getPath(String key) {
+
+		// first search key itself
+		String path = getString(key);
+		if (path != null)
+			return path;
+
+		// if not, considering the following cases
 		switch (Systems.getOs()) {
-			case Windows:
-				return getString(key + ".wins");
-			case Linux:
-			case Mac:
-			default:
-				return getString(key + ".lins");
+		case Windows:
+			return getString(key + ".wins");
+		case Linux:
+		case Mac:
+		default:
+			return getString(key + ".lins");
 		}
 	}
 
@@ -91,12 +100,12 @@ public class Configer {
 	public boolean isOn(String key) {
 		String option = getString(key).toLowerCase();
 		switch (option) {
-			case "on":
-				return true;
+		case "on":
+			return true;
 
-			case "off":
-			default:
-				return false;
+		case "off":
+		default:
+			return false;
 		}
 	}
 

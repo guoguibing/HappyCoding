@@ -6,12 +6,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StringParameter {
+/**
+ * A configer for a line of string
+ * 
+ * @author Guo Guibing
+ *
+ */
+public class LineConfiger extends StringMap{
 
 	private Map<String, List<String>> params = null;
-	private static final String headKey = "head";
+	private static final String headKey = "main.paramater";
 
-	public StringParameter(String[] parameters) {
+	public LineConfiger(String setup) {
+		this(setup.split("[,\t ]"));
+	}
+
+	public LineConfiger(String[] parameters) {
 		params = new HashMap<>();
 
 		// parameter head
@@ -37,8 +47,8 @@ public class StringParameter {
 	public List<String> getOptions(String key) {
 		return params.containsKey(key) ? params.get(key) : null;
 	}
-
-	public String getHead() {
+	
+	public String getMainParam() {
 		return getString(headKey);
 	}
 
@@ -51,20 +61,11 @@ public class StringParameter {
 		return null;
 	}
 
-	public float getFloat(String key) {
-		return Float.parseFloat(getString(key));
-	}
-
-	public int getInt(String key) {
-		return Integer.parseInt(getString(key));
-	}
-
-	public double getDouble(String key) {
-		return Double.parseDouble(getString(key));
-	}
-
+	@Override
 	public boolean contains(String key) {
 		return params.containsKey(key);
 	}
+
+	
 
 }

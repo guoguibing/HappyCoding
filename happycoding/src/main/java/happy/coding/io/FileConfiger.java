@@ -14,12 +14,16 @@ import java.util.StringTokenizer;
  * @author guoguibing
  * 
  */
-public class Configer {
+public class FileConfiger extends StringMap{
 	private Properties p = null;
 
-	public Configer(String conf) throws Exception {
+	public FileConfiger(String conf) throws Exception {
 		p = new Properties();
 		p.load(new FileInputStream(FileIO.getResource(conf)));
+	}
+
+	public LineConfiger getParamOptions(String key) {
+		return new LineConfiger(getString(key));
 	}
 
 	/**
@@ -27,7 +31,6 @@ public class Configer {
 	 * 
 	 */
 	public String getString(String key) {
-
 		String str = p.getProperty(key);
 		return str == null ? str : str.trim();
 	}
@@ -42,10 +45,6 @@ public class Configer {
 	 */
 	public void setString(String key, String val) {
 		p.setProperty(key, val);
-	}
-
-	public boolean containsKey(String key) {
-		return p.containsKey(key);
 	}
 
 	/**
@@ -66,46 +65,6 @@ public class Configer {
 		case Mac:
 		default:
 			return getString(key + ".lins");
-		}
-	}
-
-	/**
-	 * return the key value as a float
-	 * 
-	 */
-	public float getFloat(String key) {
-		return Float.parseFloat(getString(key));
-	}
-
-	/**
-	 * return the key value as a double
-	 * 
-	 */
-	public double getDouble(String key) {
-		return Double.parseDouble(getString(key));
-	}
-
-	/**
-	 * return the key value as an integer
-	 * 
-	 */
-	public int getInt(String key) {
-		return Integer.parseInt(getString(key));
-	}
-
-	/**
-	 * return the key value as boolean
-	 * 
-	 */
-	public boolean isOn(String key) {
-		String option = getString(key).toLowerCase();
-		switch (option) {
-		case "on":
-			return true;
-
-		case "off":
-		default:
-			return false;
 		}
 	}
 
@@ -215,6 +174,11 @@ public class Configer {
 		}
 
 		return values;
+	}
+
+	@Override
+	public boolean contains(String key) {
+		return p.containsKey(key);
 	}
 
 }

@@ -49,6 +49,43 @@ public class Strings {
 		return "..." + str.substring(str.length() - maxLength + 3);
 	}
 
+	public static float toFloat(String str) {
+		return Float.parseFloat(str);
+	}
+
+	public static float toFloat(String str, float val) {
+		return str != null ? Float.parseFloat(str) : val;
+	}
+
+	public static  int toInt(String str) {
+		return Integer.parseInt(str);
+	}
+
+	public static int toInt(String str, int val) {
+		return str != null ? Integer.parseInt(str) : val;
+	}
+
+	public static double toDouble(String str) {
+		return Double.parseDouble(str);
+	}
+
+	public  static double toDouble(String str, double val) {
+		return str != null ? Double.parseDouble(str) : val;
+	}
+
+	public static boolean isOn(String option) {
+		switch (option.toLowerCase()) {
+		case "on":
+		case "true":
+			return true;
+
+		case "off":
+		case "false":
+		default:
+			return false;
+		}
+	}
+
 	/**
 	 * Concatenates an array of string
 	 * 
@@ -196,12 +233,12 @@ public class Strings {
 
 		return sb.toString();
 	}
-	
+
 	public static String toString(int[][] data) {
 		int rows = data.length;
 		StringBuilder sb = new StringBuilder();
 		sb.append("Dimension: " + rows + " x " + data[0].length + "\n");
-		
+
 		for (int i = 0; i < rows; i++) {
 			sb.append("[");
 			for (int j = 0; j < data[i].length; j++) {
@@ -211,7 +248,7 @@ public class Strings {
 			}
 			sb.append("]\n");
 		}
-		
+
 		return sb.toString();
 	}
 

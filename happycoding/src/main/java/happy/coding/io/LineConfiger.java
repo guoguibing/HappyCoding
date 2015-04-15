@@ -1,5 +1,7 @@
 package happy.coding.io;
 
+import happy.coding.math.Maths;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,7 +14,7 @@ import java.util.Map;
  * @author Guo Guibing
  *
  */
-public class LineConfiger extends StringMap{
+public class LineConfiger extends StringMap {
 
 	private Map<String, List<String>> params = null;
 	private static final String headKey = "main.paramater";
@@ -35,7 +37,10 @@ public class LineConfiger extends StringMap{
 		// parameter options
 		List<String> vals = null;
 		for (; i < parameters.length; i++) {
-			if (parameters[i].startsWith("-") || parameters[i].startsWith("--")) {
+			boolean isString = !Maths.isNumeric(parameters[i]);
+			boolean isWithDash = parameters[i].startsWith("-") || parameters[i].startsWith("--");
+			// remove cases like -1, -2 values
+			if (isWithDash && isString) {
 				vals = new ArrayList<>();
 				params.put(parameters[i], vals);
 			} else {
@@ -47,7 +52,7 @@ public class LineConfiger extends StringMap{
 	public List<String> getOptions(String key) {
 		return params.containsKey(key) ? params.get(key) : null;
 	}
-	
+
 	public String getMainParam() {
 		return getString(headKey);
 	}
@@ -65,7 +70,5 @@ public class LineConfiger extends StringMap{
 	public boolean contains(String key) {
 		return params.containsKey(key);
 	}
-
-	
 
 }

@@ -57,6 +57,10 @@ public class LineConfiger extends StringMap {
 		return getString(headKey);
 	}
 
+	public boolean isMainOn() {
+		return Strings.isOn(getMainParam());
+	}
+
 	public String getString(String key) {
 		List<String> options = this.getOptions(key);
 

@@ -1,5 +1,6 @@
 package happy.coding.math;
 
+import static java.lang.Math.exp;
 import happy.coding.io.Logs;
 
 import org.junit.Test;
@@ -76,6 +77,20 @@ public class Maths {
 
 	public static double log(double n, int base) {
 		return Math.log(n) / Math.log(base);
+	}
+
+	/**
+	 * given log(a) and log(b), return log(a + b)
+	 */
+	public static double logSum(double log_a, double log_b) {
+		double v;
+
+		if (log_a < log_b) {
+			v = log_b + Math.log(1 + exp(log_a - log_b));
+		} else {
+			v = log_a + Math.log(1 + exp(log_b - log_a));
+		}
+		return (v);
 	}
 
 	/**

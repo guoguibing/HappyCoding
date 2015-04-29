@@ -364,7 +364,7 @@ public class Randoms {
 	 * nonnegative and their sum (very nearly) equals 1.0.
 	 */
 	public static int discrete(double[] a) {
-		double EPSILON = 1E-14;
+		double EPSILON = 1E-6;
 		double sum = 0.0;
 		for (int i = 0; i < a.length; i++) {
 			if (a[i] < 0.0)
@@ -374,10 +374,7 @@ public class Randoms {
 		if (sum > 1.0 + EPSILON || sum < 1.0 - EPSILON)
 			throw new IllegalArgumentException("sum of array entries not equal to one: " + sum);
 
-		// the for loop may not return a value when both r is (nearly) 1.0 and
-		// when the
-		// cumulative sum is less than 1.0 (as a result of floating-point
-		// roundoff error)
+		// the for loop may not return a value when both r is (nearly) 1.0 and when the cumulative sum is less than 1.0 (as a result of floating-point roundoff error)
 		while (true) {
 			double r = uniform();
 			sum = 0.0;

@@ -104,7 +104,7 @@ public class Strings {
 	 * 
 	 */
 	public static String toString(Object[] strings) {
-		return toString(strings, ",");
+		return toString(strings, ", ");
 	}
 
 	/**

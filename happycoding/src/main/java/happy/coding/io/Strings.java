@@ -5,6 +5,7 @@ import happy.coding.io.FileIO.MapWriter;
 import happy.coding.math.Maths;
 import happy.coding.system.Separator;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ public class Strings {
 	public static final String EMPTY = "";
 
 	private static Separator separator = Separator.line;
+	private static final DecimalFormat intFormatter = new DecimalFormat("#,###");
 
 	/**
 	 * <p>
@@ -57,7 +59,7 @@ public class Strings {
 		return str != null ? Float.parseFloat(str) : val;
 	}
 
-	public static  int toInt(String str) {
+	public static int toInt(String str) {
 		return Integer.parseInt(str);
 	}
 
@@ -69,7 +71,7 @@ public class Strings {
 		return Double.parseDouble(str);
 	}
 
-	public  static double toDouble(String str, double val) {
+	public static double toDouble(String str, double val) {
 		return str != null ? Double.parseDouble(str) : val;
 	}
 
@@ -214,6 +216,10 @@ public class Strings {
 
 	public static String toString(double data) {
 		return toString(data, 4);
+	}
+
+	public static String toString(long data) {
+		return intFormatter.format(data);
 	}
 
 	public static String toString(double[][] data) {

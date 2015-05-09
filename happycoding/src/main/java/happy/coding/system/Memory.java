@@ -89,6 +89,18 @@ public class Memory
 
 		return m;
 	}
+	
+	/**
+	 * @return the number of bytes that {@code data} consumes
+	 */
+	public static int bytes(int[][][] data){
+		int m=0;
+		
+		for(int i=0; i<data.length; i++)
+			m+= bytes(data[i]);
+		
+		return m;
+	}
 
 	/**
 	 * @return the number of bytes that {@code data} consumes
@@ -100,6 +112,19 @@ public class Memory
 		for (int i = 0; i < data.length; i++)
 			m += bytes(data[i]);
 
+		return m;
+	}
+	
+	/**
+	 * @return the number of bytes that {@code data} consumes
+	 */
+	public static int bytes(double[][][] data)
+	{
+		int m = 0;
+		
+		for (int i = 0; i < data.length; i++)
+			m += bytes(data[i]);
+		
 		return m;
 	}
 }

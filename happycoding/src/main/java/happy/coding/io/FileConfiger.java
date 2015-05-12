@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
  * @author guoguibing
  * 
  */
-public class FileConfiger extends StringMap{
+public class FileConfiger extends StringMap {
 	private Properties p = null;
 
 	public FileConfiger(String conf) throws Exception {
@@ -23,7 +23,8 @@ public class FileConfiger extends StringMap{
 	}
 
 	public LineConfiger getParamOptions(String key) {
-		return new LineConfiger(getString(key));
+		String lineOptions = getString(key);
+		return lineOptions == null ? null : new LineConfiger(lineOptions);
 	}
 
 	/**

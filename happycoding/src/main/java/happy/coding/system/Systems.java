@@ -62,13 +62,13 @@ public class Systems {
 
 	public static void pause() {
 		try {
-			Logs.debug("System paused, waiting for inputs ...");
+			Logs.debug("System paused, press [enter] to continue ...");
 			System.in.read();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+ 
 	public static void captureScreen() throws Exception {
 		captureScreen("screenshot.png");
 	}

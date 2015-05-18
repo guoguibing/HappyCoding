@@ -66,6 +66,13 @@ public class Strings {
 	public static int toInt(String str, int val) {
 		return str != null ? Integer.parseInt(str) : val;
 	}
+	public static long toLong(String str) {
+		return Long.parseLong(str);
+	}
+	
+	public static long toLong(String str, long val) {
+		return str != null ? Long.parseLong(str) : val;
+	}
 
 	public static double toDouble(String str) {
 		return Double.parseDouble(str);

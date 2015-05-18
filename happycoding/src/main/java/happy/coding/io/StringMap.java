@@ -39,6 +39,14 @@ public abstract class StringMap {
 	public double getDouble(String key, double val) {
 		return Strings.toDouble(getString(key), val);
 	}
+	
+	public long getLong(String key){
+		return Strings.toLong(key);
+	}
+	
+	public long getLong(String key, long val){
+		return Strings.toLong(getString(key), val);
+	}
 
 	public boolean isOn(String key) {
 		return Strings.isOn(getString(key));

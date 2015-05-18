@@ -8,6 +8,8 @@ public class Dates {
 	public final static String PATTERN_MM_dd_yyyy = "MM/dd/yyyy";
 	public final static String PATTERN_yyyy_MM_dd_HH_mm_SS = "yyyy-MM-dd HH-mm-SS";
 
+	private static final SimpleDateFormat sdf = new SimpleDateFormat(PATTERN_yyyy_MM_dd_HH_mm_SS);
+
 	public static java.sql.Date parse(String date) throws Exception {
 		return parse(date, PATTERN_yyyy_MM_dd);
 	}
@@ -17,8 +19,17 @@ public class Dates {
 		return new java.sql.Date(sdf.parse(date).getTime());
 	}
 
+	public static String toString(long mms, String pattern) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		return sdf.format(new java.sql.Date(mms));
+	}
+
+	public static String toString(long mms) throws Exception {
+		return sdf.format(new java.sql.Date(mms));
+	}
+
 	public static String now() {
-		return new SimpleDateFormat(PATTERN_yyyy_MM_dd_HH_mm_SS).format(new java.util.Date());
+		return sdf.format(new java.util.Date());
 	}
 
 	/**

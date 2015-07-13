@@ -64,7 +64,7 @@ public class LineConfiger extends StringMap {
 	public String getString(String key) {
 		List<String> options = this.getOptions(key);
 
-		if (options != null)
+		if (options != null && options.size() > 0)
 			return options.get(0);
 
 		return null;

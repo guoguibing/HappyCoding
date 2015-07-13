@@ -5,6 +5,9 @@ import happy.coding.io.FileIO.MapWriter;
 import happy.coding.math.Maths;
 import happy.coding.system.Separator;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.List;
@@ -66,10 +69,11 @@ public class Strings {
 	public static int toInt(String str, int val) {
 		return str != null ? Integer.parseInt(str) : val;
 	}
+
 	public static long toLong(String str) {
 		return Long.parseLong(str);
 	}
-	
+
 	public static long toLong(String str, long val) {
 		return str != null ? Long.parseLong(str) : val;
 	}
@@ -80,6 +84,12 @@ public class Strings {
 
 	public static double toDouble(String str, double val) {
 		return str != null ? Double.parseDouble(str) : val;
+	}
+
+	public static void toClipboard(String data) throws Exception {
+		Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+		StringSelection ss = new StringSelection(data);
+		cb.setContents(ss, ss);
 	}
 
 	public static boolean isOn(String option) {
